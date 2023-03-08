@@ -14,7 +14,7 @@ done
 
 #Ref traskriptomas
 
-??
+???
 
 #GFF
 wget -O ./ref/NC_000067.gff "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=nuccore&report=gff3&id=NC_000067"
