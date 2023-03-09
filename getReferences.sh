@@ -14,7 +14,7 @@ done
 
 #Ref traskriptomas
 
-???
+wget -O ./ref/MusMusculus_cdnaRef.fa.gz https://ftp.ensembl.org/pub/release-67/fasta/mus_musculus/cdna/Mus_musculus.NCBIM37.67.cdna.all.fa.gz
 
 #GFF
 j=67
