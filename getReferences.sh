@@ -11,6 +11,8 @@ do
     i=$(($i+1))
 done
 
+cat ref/*.fasta > ref/mm10.fasta
+
 
 #Ref traskriptomas
 
@@ -39,3 +41,15 @@ wget -O ./inputs/SRR8985049_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898
 
 wget -O ./inputs/SRR8985050_1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/000/SRR8985050/SRR8985050_1.fastq.gz
 wget -O ./inputs/SRR8985050_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/000/SRR8985050/SRR8985050_2.fastq.gz
+
+#new ref
+
+#ref genome
+wget -O ./ref/mm10.fa.gz https://ftp.ensembl.org/pub/release-109/fasta/mus_musculus/dna/Mus_musculus.GRCm39.dna.primary_assembly.fa.gz
+
+#Ref traskriptomas
+wget -O ./ref/mm10.fasta_cdnaRef.fa.gz https://ftp.ensembl.org/pub/release-67/fasta/mus_musculus/cdna/Mus_musculus.NCBIM37.67.cdna.all.fa.gz
+
+#GFF
+
+wget -O ./ref/mm10.gff3.gz https://ftp.ensembl.org/pub/release-109/gff3/mus_musculus/Mus_musculus.GRCm39.109.gff3.gz
