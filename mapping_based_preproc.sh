@@ -21,7 +21,11 @@ do
 done
 
 
-Rerun FASTQC on newly created/cleaned FASTQ files. 
+#Rerun FASTQC on newly created/cleaned FASTQ files. 
+for i in outputs/*.gz
+do fastqc $i
+done
+
 Create MultiQC plots for your raw and processed data. 
 ## Mapping, some QC and quantification
 Your script should:
