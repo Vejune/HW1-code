@@ -1,7 +1,10 @@
 #!/bin/sh
 
+# Visos komandos is projekto saknines direktorijos
+
 ## Reference genome preparation
-#Your script should check if index files exist and if it does not exist - create a reference genome index.
+#check if index files exist and if it does not exist - create a reference genome index.
+gunzip ./ref/mm10.fa.gz
 
 FILE=./ref/mm10.1.ht2
 if [ -f "$FILE" ]; then
