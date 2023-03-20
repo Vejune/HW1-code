@@ -42,6 +42,8 @@ wget -O ./inputs/SRR8985049_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898
 wget -O ./inputs/SRR8985050_1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/000/SRR8985050/SRR8985050_1.fastq.gz
 wget -O ./inputs/SRR8985050_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/000/SRR8985050/SRR8985050_2.fastq.gz
 
+
+
 #new ref
 
 #ref genome
