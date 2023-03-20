@@ -39,7 +39,11 @@ Create MultiQC plots for your raw and processed data.
 ## Mapping, some QC and quantification
 Your script should:
 
-#Mapped each sample to the reference genome. After mapping, you should remove unmapped reads as well as reads that are mapped incorrectly. Mapping results should be saved in BAM format.
+#Mapped each sample to the reference genome. 
+#After mapping, you should remove unmapped reads as well as reads that are mapped incorrectly. Mapping results should be saved in BAM format.
+#Deduplicate your file
+#Index your BAM files.
+
 for i in outputs/*1_val_1.fq.gz
 do 
 base=$(basename $i _1_val_1.fq.gz)
@@ -49,21 +53,19 @@ done
 for i in ./outputs/*.sam
 do
     base=$(basename $i .sam)
-    samtools view -F 0x04 -bS -@ 6  ./outputs/${base}.sam | samtools sort -@ 6 -o ./outputs/${base}.bam
+    samtools view -bS -@ 6 ./outputs/${base}.sam |  samtools sort -@ 6 -o ./outputs/tmp.bam
+    samtools sort -@ 6 -n ./outputs/tmp.bam -o ./outputs/foo.bam
+    samtools fixmate -@ 6 -m -r ./outputs/foo.bam ./outputs/bar.bam
+    samtools sort -@ 6 ./outputs/bar.bam > ./outputs/foo.bam
+    samtools markdup -@ 6 -r -s /outputs/foo.bam ./outputs/bar.bam
+    samtools sort -@ 6 ./outputs/bar.bam -o ./outputs/cleaned/${base}.bam
 done
 
-#Deduplicate your file
+rm outputs/tmp.bam outputs/bar.bam outputs/foo.bam
 
-#for i in ./outputs/*.bam
-#do
-#base=$(basename $i .bam)
-#samtools rmdup -S ./outputs/${base}.bam ./outputs/${base}_nodb.bam
-#done
+#Index your BAM files
 
-
-#Index your BAM files.
-
-for i in ./outputs/*.bam
+for i in ./outputs/*_final.bam
 do
 samtools index $i
 done
@@ -81,13 +83,13 @@ done
 
 #Create a correlation diagram as well as a PCA plot for your data. Correlation and PCA plots should be saved to the results folder.
 
-multiBamSummary bins --outFileName results/mapped.npz --binSize 10000 -p 6 --outRawCounts results/results.raw_counts.tsv -b outputs/*.bam
+multiBamSummary bins --outFileName results/mapped_2.npz --binSize 10000 -p 6 --outRawCounts results/results.raw_counts_2.tsv -b outputs/*_final.bam
 
-plotCorrelation -in results/mapped.npz -c pearson -p heatmap -o results/mapped_data_heatmap.pdf
+plotCorrelation -in results/mapped.npz -c pearson -p heatmap -o results/mapped_data_heatmap_2.pdf
 
-plotCorrelation -in results/mapped.npz -c pearson -p scatterplot -o results/mapped_data_scatter.pdf
+plotCorrelation -in results/mapped.npz -c pearson -p scatterplot -o results/mapped_data_scatter_2.pdf
 
-plotPCA -in results/mapped.npz -o results/mapped_data_PCA.pdf
+plotPCA -in results/mapped.npz -o results/mapped_data_PCA_2.pdf
 
 
 # 47, 48 WT
