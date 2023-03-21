@@ -31,16 +31,24 @@ done
 #RNASeq raw duomenys
 
 wget -O ./inputs/SRR8985047_1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/007/SRR8985047/SRR8985047_1.fastq.gz
+                                       ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/007/SRR8985047/SRR8985047_1.fastq.gz
 wget -O ./inputs/SRR8985047_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/007/SRR8985047/SRR8985047_2.fastq.gz
+                                       ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/007/SRR8985047/SRR8985047_2.fastq.gz
 
 wget -O ./inputs/SRR8985048_1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/008/SRR8985048/SRR8985048_1.fastq.gz
+                                       ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/008/SRR8985048/SRR8985048_1.fastq.gz
 wget -O ./inputs/SRR8985048_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/008/SRR8985048/SRR8985048_2.fastq.gz
+                                       ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/008/SRR8985048/SRR8985048_2.fastq.gz
 
 wget -O ./inputs/SRR8985049_1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/009/SRR8985049/SRR8985049_1.fastq.gz
+                                       ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/009/SRR8985049/SRR8985049_1.fastq.gz
 wget -O ./inputs/SRR8985049_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/009/SRR8985049/SRR8985049_2.fastq.gz
+                                       ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/009/SRR8985049/SRR8985049_2.fastq.gz
 
 wget -O ./inputs/SRR8985050_1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/000/SRR8985050/SRR8985050_1.fastq.gz
+                                       ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/000/SRR8985050/SRR8985050_1.fastq.gz
 wget -O ./inputs/SRR8985050_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/000/SRR8985050/SRR8985050_2.fastq.gz
+                                       ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/000/SRR8985050/SRR8985050_2.fastq.gz
 
 
 

@@ -37,12 +37,10 @@ done
 
 Create MultiQC plots for your raw and processed data. 
 ## Mapping, some QC and quantification
-Your script should:
 
 #Mapped each sample to the reference genome. 
 #After mapping, you should remove unmapped reads as well as reads that are mapped incorrectly. Mapping results should be saved in BAM format.
 #Deduplicate your file
-#Index your BAM files.
 
 for i in outputs/*1_val_1.fq.gz
 do 
@@ -56,16 +54,16 @@ do
     samtools view -bS -@ 6 ./outputs/${base}.sam |  samtools sort -@ 6 -o ./outputs/tmp.bam
     samtools sort -@ 6 -n ./outputs/tmp.bam -o ./outputs/foo.bam
     samtools fixmate -@ 6 -m -r ./outputs/foo.bam ./outputs/bar.bam
-    samtools sort -@ 6 ./outputs/bar.bam > ./outputs/foo.bam
-    samtools markdup -@ 6 -r -s /outputs/foo.bam ./outputs/bar.bam
-    samtools sort -@ 6 ./outputs/bar.bam -o ./outputs/cleaned/${base}.bam
+    samtools sort -@ 6 ./outputs/bar.bam -o ./outputs/foo.bam
+    samtools markdup -@ 6 -r -s ./outputs/foo.bam ./outputs/bar.bam
+    samtools sort -@ 6 ./outputs/bar.bam -o ./outputs/${base}.bam
 done
 
 rm outputs/tmp.bam outputs/bar.bam outputs/foo.bam
 
 #Index your BAM files
 
-for i in ./outputs/*_final.bam
+for i in ./outputs/*.bam
 do
 samtools index $i
 done
@@ -77,19 +75,31 @@ zcat ./ref/mm10.gff3.gz > ./ref/mm10.gff
 for i in ./outputs/*.bam
 do
 ID=$(basename $i .bam)
-stringtie -p 6 -G ./ref/mm10.gff -eB -o ./outputs/${ID}/${ID}.gtf -A ./outputs/${ID}/${ID}.tab $i
+stringtie -p 6 -G ./ref/mm10.gff -o ./outputs/${ID}/${ID}.gtf -l ${ID} $i
 done
 
+echo "./outputs/SRR8985047/SRR8985047.gtf" > results/mergelist.txt
+echo "./outputs/SRR8985048/SRR8985048.gtf" >> results/mergelist.txt
+echo "./outputs/SRR8985049/SRR8985049.gtf" >> results/mergelist.txt
+echo "./outputs/SRR8985050/SRR8985050.gtf" >> results/mergelist.txt
+
+stringtie --merge -p 6 -G ./ref/mm10.gff -o ./results/stringtie_merged.gtf ./results/mergelist.txt
+
+for i in ./outputs/*.bam
+do
+ID=$(basename $i .bam)
+stringtie -p 6 -e -B -G ./results/stringtie_merged.gtf -o ./outputs/${ID}/${ID}"/"${ID}.gtf $i
+done
 
 #Create a correlation diagram as well as a PCA plot for your data. Correlation and PCA plots should be saved to the results folder.
 
-multiBamSummary bins --outFileName results/mapped_2.npz --binSize 10000 -p 6 --outRawCounts results/results.raw_counts_2.tsv -b outputs/*_final.bam
+multiBamSummary bins --outFileName results/mapped.npz --binSize 10000 -p 6 --outRawCounts results/results.raw_counts.tsv -b outputs/*.bam
 
-plotCorrelation -in results/mapped.npz -c pearson -p heatmap -o results/mapped_data_heatmap_2.pdf
+plotCorrelation -in results/mapped.npz -c pearson -p heatmap -o results/mapped_data_heatmap.pdf
 
-plotCorrelation -in results/mapped.npz -c pearson -p scatterplot -o results/mapped_data_scatter_2.pdf
+plotCorrelation -in results/mapped.npz -c pearson -p scatterplot -o results/mapped_data_scatter.pdf
 
-plotPCA -in results/mapped.npz -o results/mapped_data_PCA_2.pdf
+plotPCA -in results/mapped.npz -o results/mapped_data_PCA.pdf
 
 
 # 47, 48 WT
