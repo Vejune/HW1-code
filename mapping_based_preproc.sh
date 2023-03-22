@@ -45,17 +45,17 @@ Create MultiQC plots for your raw and processed data.
 for i in outputs/*1_val_1.fq.gz
 do 
 base=$(basename $i _1_val_1.fq.gz)
-hisat2 -p 6 -x ./ref/mm10 -1 outputs/${base}_1_val_1.fq.gz -2 outputs/${base}_2_val_2.fq.gz -S outputs/${base}.sam 
+hisat2 -p 6 --dta -x ./ref/mm10 -1 outputs/${base}_1_val_1.fq.gz -2 outputs/${base}_2_val_2.fq.gz -S outputs/${base}.sam 
 done
 
 for i in ./outputs/*.sam
 do
     base=$(basename $i .sam)
-    samtools view -bS -@ 6 ./outputs/${base}.sam |  samtools sort -@ 6 -o ./outputs/tmp.bam
+    samtools view -F 260 -bS -@ 6 ./outputs/${base}.sam |  samtools sort -@ 6 -o ./outputs/tmp.bam # -F 260 filter unmapped, if one of paire is unmapped, secondary reads and PCR dup
     samtools sort -@ 6 -n ./outputs/tmp.bam -o ./outputs/foo.bam
-    samtools fixmate -@ 6 -m -r ./outputs/foo.bam ./outputs/bar.bam
+    samtools fixmate -@ 6 -m -r ./outputs/foo.bam ./outputs/bar.bam # -r Remove secondary and unmapped reads, -m add tags
     samtools sort -@ 6 ./outputs/bar.bam -o ./outputs/foo.bam
-    samtools markdup -@ 6 -r -s ./outputs/foo.bam ./outputs/bar.bam
+    samtools markdup -@ 6 -r -s ./outputs/foo.bam ./outputs/bar.bam # -r Remove duplicate reads, -s statistics
     samtools sort -@ 6 ./outputs/bar.bam -o ./outputs/${base}.bam
 done
 
@@ -104,3 +104,20 @@ plotPCA -in results/mapped.npz -o results/mapped_data_PCA.pdf
 
 # 47, 48 WT
 # 49, 50 heterozygous
+
+for i in outputs/*1_val_1.fq.gz
+do 
+base=$(basename $i _1_val_1.fq.gz)
+hisat2 -p 6 --dta -x ./ref/mm10 -1 outputs/${base}_1_val_1.fq.gz -2 outputs/${base}_2_val_2.fq.gz -S test/${base}.sam 
+done
+
+for i in ./test/*.sam
+do
+    base=$(basename $i .sam)
+    samtools view -F 260 -bS -@ 6 ./test/${base}.sam |  samtools sort -@ 6 -o ./test/tmp.bam
+    samtools sort -@ 6 -n ./test/tmp.bam -o ./test/foo.bam
+    samtools fixmate -@ 6 -m -r ./test/foo.bam ./test/bar.bam # -r Remove secondary and unmapped reads, -m add tags
+    samtools sort -@ 6 ./test/bar.bam -o ./test/foo.bam
+    samtools markdup -@ 6 -r -s ./test/foo.bam ./test/bar.bam # -r Remove duplicate reads, -s statistics
+    samtools sort -@ 6 ./test/bar.bam -o ./test/${base}.bam
+done
