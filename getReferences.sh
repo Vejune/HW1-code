@@ -63,3 +63,16 @@ wget -O ./ref/mm10.fasta_cdnaRef.fa.gz https://ftp.ensembl.org/pub/release-67/fa
 #GFF
 
 wget -O ./ref/mm10.gff3.gz https://ftp.ensembl.org/pub/release-109/gff3/mus_musculus/Mus_musculus.GRCm39.109.gff3.gz
+
+
+wget -O ./test_in/SRR8985047_1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/007/SRR8985047/SRR8985047_1.fastq.gz
+wget -O ./test_in/SRR8985047_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/007/SRR8985047/SRR8985047_2.fastq.gz
+
+wget -O ./test_in/SRR8985048_1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/008/SRR8985048/SRR8985048_1.fastq.gz
+wget -O ./test_in/SRR8985048_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/008/SRR8985048/SRR8985048_2.fastq.gz
+
+wget -O ./test_in/SRR8985049_1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/009/SRR8985049/SRR8985049_1.fastq.gz
+wget -O ./test_in/SRR8985049_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/009/SRR8985049/SRR8985049_2.fastq.gz
+
+wget -O ./test_in/SRR8985050_1.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/000/SRR8985050/SRR8985050_1.fastq.gz
+wget -O ./test_in/SRR8985050_2.fastq.gz ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR898/000/SRR8985050/SRR8985050_2.fastq.gz

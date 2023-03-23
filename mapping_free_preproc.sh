@@ -44,5 +44,5 @@ done
 for i in outputs/*1_val_1.fq.gz
 do
 base=$(basename $i _1_val_1.fq.gz)
-salmon quant -i ./ref/mm10_cDNA -l IU -1 outputs/${base}_1_val_1.fq.gz -2 outputs/${base}_2_val_2.fq.gz --validateMappings -o outputs/${base}_transcripts_quant
+salmon quant -i ./ref/mm10_cDNA -l IU -1 outputs/${base}_1_val_1.fq.gz -2 outputs/${base}_2_val_2.fq.gz --validateMappings -o no_map_results/${base}_transcripts_quant
 done
