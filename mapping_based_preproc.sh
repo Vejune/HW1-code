@@ -35,7 +35,7 @@ for i in outputs/*.gz
 do fastqc $i
 done
 
-Create MultiQC plots for your raw and processed data. 
+multiqc inputs/*outputs.zip -o outputs/
 ## Mapping, some QC and quantification
 
 #Mapped each sample to the reference genome. 
